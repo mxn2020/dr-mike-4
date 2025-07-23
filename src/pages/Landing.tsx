@@ -1,7 +1,7 @@
 // src/pages/Landing.tsx
 
 import React, { useState, useEffect } from 'react';
-import { Database, Zap, Code, Globe, Users, Star, User } from 'lucide-react';
+import { Heart, Stethoscope, Calendar, Users, Star, User, Clock, Shield, Award, Phone, Mail, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Container, Button, Card, CardContent, Badge, Header, Nav, Section, Span, H1, H2, P, Div, Footer } from '../lib/dev-container';
 import { useAuth } from '../components/auth/AuthProvider';
@@ -13,66 +13,92 @@ const getStatCardId = (index: number): ComponentRegistryId => {
   return ids[index] || 'noID';
 };
 
-const getFeatureCardId = (index: number): ComponentRegistryId => {
-  const ids: ComponentRegistryId[] = ['feature-card-0', 'feature-card-1', 'feature-card-2', 'feature-card-3'];
+const getServiceCardId = (index: number): ComponentRegistryId => {
+  const ids: ComponentRegistryId[] = ['service-card-0', 'service-card-1', 'service-card-2', 'service-card-3'];
   return ids[index] || 'noID';
 };
 
-const getTechLetterId = (index: number): ComponentRegistryId => {
-  const ids: ComponentRegistryId[] = ['tech-letter-0', 'tech-letter-1', 'tech-letter-2', 'tech-letter-3', 'tech-letter-4', 'tech-letter-5'];
+const getSpecialtyBadgeId = (index: number): ComponentRegistryId => {
+  const ids: ComponentRegistryId[] = ['specialty-badge-0', 'specialty-badge-1', 'specialty-badge-2', 'specialty-badge-3', 'specialty-badge-4', 'specialty-badge-5'];
   return ids[index] || 'noID';
 };
 
-const getTechBadgeId = (index: number): ComponentRegistryId => {
-  const ids: ComponentRegistryId[] = ['tech-badge-0', 'tech-badge-1', 'tech-badge-2', 'tech-badge-3', 'tech-badge-4', 'tech-badge-5'];
+const getSpecialtyIconId = (index: number): ComponentRegistryId => {
+  const ids: ComponentRegistryId[] = ['specialty-icon-0', 'specialty-icon-1', 'specialty-icon-2', 'specialty-icon-3', 'specialty-icon-4', 'specialty-icon-5'];
   return ids[index] || 'noID';
 };
 
 export const Landing: React.FC = () => {
   const [mounted, setMounted] = useState(false);
+  const [appointmentForm, setAppointmentForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    preferredDate: '',
+    preferredTime: '',
+    reason: '',
+    message: ''
+  });
   const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const features = [
+  const handleAppointmentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle appointment request submission
+    console.log('Appointment request:', appointmentForm);
+    // Reset form
+    setAppointmentForm({
+      name: '',
+      email: '',
+      phone: '',
+      preferredDate: '',
+      preferredTime: '',
+      reason: '',
+      message: ''
+    });
+    alert('Appointment request submitted! We will contact you soon.');
+  };
+
+  const services = [
     {
-      icon: <Zap className="w-8 h-8 text-yellow-500" />,
-      title: "Lightning Fast",
-      description: "Built with Vite for instant hot module replacement and blazing fast builds"
+      icon: <Heart className="w-8 h-8 text-red-500" />,
+      title: "Cardiology",
+      description: "Comprehensive heart health assessments and treatments for optimal cardiovascular wellness"
     },
     {
-      icon: <Database className="w-8 h-8 text-green-500" />,
-      title: "MongoDB + Prisma",
-      description: "Type-safe database access with MongoDB flexibility and Prisma's developer experience"
+      icon: <Stethoscope className="w-8 h-8 text-blue-500" />,
+      title: "General Medicine",
+      description: "Primary care services including routine checkups, preventive care, and health screenings"
     },
     {
-      icon: <Code className="w-8 h-8 text-blue-500" />,
-      title: "TypeScript Ready",
-      description: "Full TypeScript support with strict type checking and IntelliSense"
+      icon: <Shield className="w-8 h-8 text-green-500" />,
+      title: "Preventive Care",
+      description: "Proactive healthcare approach focusing on disease prevention and health maintenance"
     },
     {
-      icon: <Globe className="w-8 h-8 text-purple-500" />,
-      title: "Deploy Anywhere",
-      description: "Ready for Netlify, Vercel, or any modern hosting platform"
+      icon: <Award className="w-8 h-8 text-purple-500" />,
+      title: "Specialized Treatment",
+      description: "Advanced medical treatments tailored to individual patient needs and conditions"
     }
   ];
 
   const stats = [
-    { label: "Build Time", value: "< 2s" },
-    { label: "Bundle Size", value: "< 50KB" },
-    { label: "TypeScript", value: "100%" },
-    { label: "Performance", value: "A+" }
+    { label: "Years Experience", value: "15+" },
+    { label: "Patients Treated", value: "10K+" },
+    { label: "Success Rate", value: "98%" },
+    { label: "Awards Won", value: "25+" }
   ];
 
   return (
-    <Container componentId="landing-page-root"> {/* Changed to direct ID */}
+    <Container componentId="landing-page-root">
       <Div 
         devId="main-wrapper" 
         devName="Main Wrapper" 
-        devDescription="Main page wrapper with gradient background"
-        className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
+        devDescription="Main page wrapper with medical gradient background"
+        className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50"
       >
       {/* Header */}
       <Header 
@@ -90,19 +116,19 @@ export const Landing: React.FC = () => {
           <Div 
             devId="logo-section" 
             devName="Logo Section" 
-            devDescription="Company logo and brand name"
+            devDescription="Doctor logo and brand name"
             className="flex items-center space-x-2"
           >
-            <Div devId="noID" className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <Code className="w-5 h-5 text-white" />
+            <Div devId="noID" className="w-10 h-10 bg-gradient-to-r from-blue-600 to-green-600 rounded-full flex items-center justify-center">
+              <Stethoscope className="w-6 h-6 text-white" />
             </Div>
             <Span 
               devId="brand-name" 
               devName="Brand Name" 
-              devDescription="Geenius Template brand name"
-              className="text-xl font-bold text-white"
+              devDescription="Dr. Mike brand name"
+              className="text-2xl font-bold text-gray-800"
             >
-              Geenius Template
+              Dr. Mike
             </Span>
           </Div>
           <Div 
@@ -112,13 +138,24 @@ export const Landing: React.FC = () => {
             className="flex items-center space-x-4"
           >
             <Button 
-              devId="docs-button" 
-              devName="Docs Button" 
-              devDescription="Link to documentation"
+              devId="services-button" 
+              devName="Services Button" 
+              devDescription="Link to services section"
               variant="ghost" 
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-600 hover:text-blue-600 transition-colors"
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Docs
+              Services
+            </Button>
+            <Button 
+              devId="about-button" 
+              devName="About Button" 
+              devDescription="Link to about section"
+              variant="ghost" 
+              className="text-gray-600 hover:text-blue-600 transition-colors"
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              About
             </Button>
             {isAuthenticated ? (
               <Div 
@@ -131,7 +168,7 @@ export const Landing: React.FC = () => {
                   devId="welcome-message" 
                   devName="Welcome Message" 
                   devDescription="Welcome message for authenticated user"
-                  className="text-gray-300"
+                  className="text-gray-600"
                 >
                   Welcome, {user?.name?.split(' ')[0]}!
                 </Span>
@@ -140,7 +177,7 @@ export const Landing: React.FC = () => {
                     devId="nav-dashboard-button"
                     devName="Navigation Dashboard Button"
                     devDescription="Dashboard button in navigation header for authenticated users"
-                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
                   >
                     <User className="w-4 h-4 mr-2" />
                     Dashboard
@@ -160,7 +197,7 @@ export const Landing: React.FC = () => {
                     devName="Navigation Login Button"
                     devDescription="Login button in navigation header"
                     variant="ghost" 
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="text-gray-600 hover:text-blue-600 transition-colors"
                   >
                     Login
                   </Button>
@@ -170,9 +207,9 @@ export const Landing: React.FC = () => {
                     devId="nav-register-button"
                     devName="Navigation Register Button"
                     devDescription="Get started button in navigation header"
-                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
                   >
-                    Get Started
+                    Book Appointment
                   </Button>
                 </Link>
               </Div>
@@ -182,11 +219,11 @@ export const Landing: React.FC = () => {
       </Header>
 
       {/* Hero Section */}
-      <Container componentId="hero-section"> {/* Changed to direct ID */}
+      <Container componentId="hero-section">
         <Section 
           devId="hero-content" 
           devName="Hero Content" 
-          devDescription="Main hero Section with title and call-to-action"
+          devDescription="Main hero section with doctor introduction and call-to-action"
           className="container mx-auto px-4 py-20 text-center"
         >
           <Div 
@@ -198,65 +235,53 @@ export const Landing: React.FC = () => {
             <H1 
               devId="hero-title" 
               devName="Hero Title" 
-              devDescription="Main hero title showcasing the tech stack"
-              className="text-5xl md:text-7xl font-bold text-white mb-6"
+              devDescription="Main hero title introducing Dr. Mike"
+              className="text-5xl md:text-7xl font-bold text-gray-800 mb-6"
             >
-              Vite + React + 
+              Your Health, 
               <Span 
-                devId="mongodb-highlight" 
-                devName="MongoDB Highlight" 
-                devDescription="Highlighted MongoDB text in gradient"
-                className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+                devId="care-highlight" 
+                devName="Care Highlight" 
+                devDescription="Highlighted care text in gradient"
+                className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent"
               >
-                {' '}MongoDB
+                {' '}Our Priority
               </Span>
             </H1>
             <P 
               devId="hero-description" 
               devName="Hero Description" 
-              devDescription="Hero Section description explaining the template benefits"
-              className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
+              devDescription="Hero section description explaining medical services"
+              className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
             >
-              Modern full-stack template with lightning-fast development, type-safe database access, 
-              and production-ready deployment configuration.
+              Providing comprehensive healthcare services with over 15 years of experience. 
+              From routine checkups to specialized treatments, your wellness is our mission.
             </P>
             <Div 
               devId="hero-cta-buttons" 
               devName="Hero CTA Buttons" 
-              devDescription="Call-to-action buttons in hero Section"
+              devDescription="Call-to-action buttons in hero section"
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              {isAuthenticated ? (
-                <Link to="/dashboard">
-                  <Button 
-                    devId="hero-start-building"
-                    devName="Start Building Button"
-                    devDescription="Primary call-to-action button for starting to build with the template"
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
-                  >
-                    Go to Dashboard
-                  </Button>
-                </Link>
-              ) : (
-                <Link to="/register">
-                  <Button 
-                    devId="hero-start-building"
-                    devName="Start Building Button"
-                    devDescription="Primary call-to-action button for starting to build with the template"
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
-                  >
-                    Start Building
-                  </Button>
-                </Link>
-              )}
               <Button 
-                devId="hero-github-button"
-                devName="View on GitHub Button"
-                devDescription="Secondary button to view the project on GitHub"
-                variant="outline"
-                className="border border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white px-8 py-3 rounded-lg font-semibold transition-all"
+                devId="hero-book-appointment"
+                devName="Book Appointment Button"
+                devDescription="Primary call-to-action button for booking appointments"
+                className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
+                onClick={() => document.getElementById('appointment-form')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                View on GitHub
+                <Calendar className="w-5 h-5 mr-2" />
+                Book Appointment
+              </Button>
+              <Button 
+                devId="hero-learn-more"
+                devName="Learn More Button"
+                devDescription="Secondary button to learn more about services"
+                variant="outline"
+                className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-all"
+                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Learn More
               </Button>
             </Div>
           </Div>
@@ -264,11 +289,11 @@ export const Landing: React.FC = () => {
       </Container>
 
       {/* Stats Section */}
-      <Container componentId="stats-section"> {/* Changed to direct ID */}
+      <Container componentId="stats-section">
         <Section 
           devId="stats-content" 
           devName="Stats Content" 
-          devDescription="Statistics Section showing performance metrics"
+          devDescription="Statistics section showing medical achievements"
           className="container mx-auto px-4 py-12"
         >
           <Div 
@@ -283,11 +308,11 @@ export const Landing: React.FC = () => {
                 devId={getStatCardId(index)}
                 devName={`${stat.label} Stat Card`}
                 devDescription={`Statistical card showing ${stat.label}: ${stat.value}`}
-                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10"
+                className="bg-white/80 backdrop-blur-sm rounded-xl p-6 text-center border border-blue-100 shadow-lg hover:shadow-xl transition-shadow"
               >
-                <CardContent devId="noID"  className="p-0">
-                  <Div devId="noID" className="text-2xl font-bold text-white mb-2">{stat.value}</Div>
-                  <Div devId="noID" className="text-gray-400">{stat.label}</Div>
+                <CardContent devId="noID" className="p-0">
+                  <Div devId="noID" className="text-3xl font-bold text-blue-600 mb-2">{stat.value}</Div>
+                  <Div devId="noID" className="text-gray-600 font-medium">{stat.label}</Div>
                 </CardContent>
               </Card>
             ))}
@@ -295,28 +320,28 @@ export const Landing: React.FC = () => {
         </Section>
       </Container>
 
-      {/* Features Section */}
-      <Container componentId="features-section"> {/* Changed to direct ID */}
-        <Section devId="noID" className="container mx-auto px-4 py-20">
+      {/* Services Section */}
+      <Container componentId="services-section">
+        <Section devId="noID" className="container mx-auto px-4 py-20" id="services">
           <Div devId="noID" className="text-center mb-16">
-            <H2 devId="noID" className="text-4xl font-bold text-white mb-4">Why Choose This Template?</H2>
-            <P devId="noID" className="text-gray-300 max-w-2xl mx-auto">
-              Everything you need to build modern web applications with the latest technologies
+            <H2 devId="noID" className="text-4xl font-bold text-gray-800 mb-4">Medical Services</H2>
+            <P devId="noID" className="text-gray-600 max-w-2xl mx-auto">
+              Comprehensive healthcare services tailored to meet your individual needs with the highest standards of medical care
             </P>
           </Div>
           <Div devId="noID" className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
+            {services.map((service, index) => (
               <Card 
                 key={index} 
-                devId={getFeatureCardId(index)}
-                devName={`${feature.title} Feature Card`}
-                devDescription={`Feature card highlighting ${feature.title}: ${feature.description}`}
-                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-purple-500/50 transition-all"
+                devId={getServiceCardId(index)}
+                devName={`${service.title} Service Card`}
+                devDescription={`Service card highlighting ${service.title}: ${service.description}`}
+                className="bg-white rounded-xl p-6 border border-gray-100 shadow-lg hover:shadow-xl transition-all hover:border-blue-200"
               >
                 <CardContent devId="noID" className="p-0">
-                  <Div devId="noID" className="mb-4">{feature.icon}</Div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                  <P devId="noID" className="text-gray-400">{feature.description}</P>
+                  <Div devId="noID" className="mb-4">{service.icon}</Div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{service.title}</h3>
+                  <P devId="noID" className="text-gray-600">{service.description}</P>
                 </CardContent>
               </Card>
             ))}
@@ -324,75 +349,179 @@ export const Landing: React.FC = () => {
         </Section>
       </Container>
 
-      {/* Tech Stack Section */}
-      <Container componentId="tech-stack-section"> {/* Changed to direct ID */}
-        <Section devId="noID" className="container mx-auto px-4 py-20">
-          <Div devId="noID" className="text-center mb-16">
-            <H2 devId="noID" className="text-4xl font-bold text-white mb-4">Modern Tech Stack</H2>
-            <P devId="noID" className="text-gray-300 max-w-2xl mx-auto">
-              Built with the most popular and reliable technologies
-            </P>
-          </Div>
-          <Div devId="noID" className="grid grid-cols-2 md:grid-cols-6 gap-8">
-            {[
-              { name: "Vite", color: "from-yellow-400 to-orange-500" },
-              { name: "React", color: "from-blue-400 to-cyan-400" },
-              { name: "TypeScript", color: "from-blue-500 to-blue-600" },
-              { name: "MongoDB", color: "from-green-400 to-green-500" },
-              { name: "Prisma", color: "from-purple-400 to-purple-500" },
-              { name: "Tailwind", color: "from-teal-400 to-teal-500" }
-            ].map((tech, index) => (
-              <Div key={index} devId="noID" className="text-center">
-                <Div devId={getTechLetterId(index)} className={`w-16 h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br ${tech.color} flex items-center justify-center`}>
-                  <span className="text-white font-bold text-lg">{tech.name[0]}</span>
-                </Div>
-                <Badge 
-                  devId={getTechBadgeId(index)}
-                  devName={`${tech.name} Technology Badge`}
-                  devDescription={`Technology badge for ${tech.name}`}
-                  className="text-gray-300 font-medium bg-transparent border-none"
-                >
-                  {tech.name}
-                </Badge>
+      {/* About Section */}
+      <Container componentId="about-section">
+        <Section devId="noID" className="container mx-auto px-4 py-20 bg-gradient-to-r from-blue-50 to-green-50 rounded-3xl" id="about">
+          <Div devId="noID" className="grid md:grid-cols-2 gap-12 items-center">
+            <Div devId="noID">
+              <H2 devId="noID" className="text-4xl font-bold text-gray-800 mb-6">About Dr. Mike</H2>
+              <P devId="noID" className="text-gray-600 mb-6 text-lg leading-relaxed">
+                With over 15 years of experience in medicine, Dr. Mike has dedicated his career to providing 
+                exceptional healthcare services. Board-certified and committed to staying at the forefront of 
+                medical advances, he combines clinical expertise with genuine compassion for patient care.
+              </P>
+              <Div devId="noID" className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                {[
+                  { name: "Cardiology", color: "from-red-400 to-red-500" },
+                  { name: "Internal Medicine", color: "from-blue-400 to-blue-500" },
+                  { name: "Preventive Care", color: "from-green-400 to-green-500" },
+                  { name: "Emergency Medicine", color: "from-purple-400 to-purple-500" },
+                  { name: "Geriatrics", color: "from-orange-400 to-orange-500" },
+                  { name: "Family Medicine", color: "from-teal-400 to-teal-500" }
+                ].map((specialty, index) => (
+                  <Div key={index} devId="noID" className="text-center">
+                    <Div devId={getSpecialtyIconId(index)} className={`w-12 h-12 mx-auto mb-2 rounded-lg bg-gradient-to-br ${specialty.color} flex items-center justify-center`}>
+                      <span className="text-white font-bold text-sm">{specialty.name[0]}</span>
+                    </Div>
+                    <Badge 
+                      devId={getSpecialtyBadgeId(index)}
+                      devName={`${specialty.name} Specialty Badge`}
+                      devDescription={`Specialty badge for ${specialty.name}`}
+                      className="text-xs text-gray-600 font-medium bg-white/50 border-none"
+                    >
+                      {specialty.name}
+                    </Badge>
+                  </Div>
+                ))}
               </Div>
-            ))}
+            </Div>
+            <Div devId="noID" className="bg-white rounded-2xl p-8 shadow-xl">
+              <H2 devId="noID" className="text-2xl font-bold text-gray-800 mb-6">Contact Information</H2>
+              <Div devId="noID" className="space-y-4">
+                <Div devId="noID" className="flex items-center space-x-3">
+                  <Phone className="w-5 h-5 text-blue-600" />
+                  <span className="text-gray-700">(555) 123-4567</span>
+                </Div>
+                <Div devId="noID" className="flex items-center space-x-3">
+                  <Mail className="w-5 h-5 text-blue-600" />
+                  <span className="text-gray-700">contact@drmike.com</span>
+                </Div>
+                <Div devId="noID" className="flex items-center space-x-3">
+                  <MapPin className="w-5 h-5 text-blue-600" />
+                  <span className="text-gray-700">123 Medical Center Dr, Health City, HC 12345</span>
+                </Div>
+                <Div devId="noID" className="flex items-center space-x-3">
+                  <Clock className="w-5 h-5 text-blue-600" />
+                  <span className="text-gray-700">Mon-Fri: 8AM-6PM, Sat: 9AM-2PM</span>
+                </Div>
+              </Div>
+            </Div>
           </Div>
         </Section>
       </Container>
 
-      {/* CTA Section */}
-      <Container componentId="cta-section"> {/* Changed to direct ID */}
-        <Section devId="noID" className="container mx-auto px-4 py-20">
-          <Div devId="noID" className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl p-12 text-center border border-purple-500/30">
-            <H2 devId="noID" className="text-4xl font-bold text-white mb-4">Ready to Build Something Amazing?</H2>
-            <P devId="noID" className="text-gray-300 mb-8 max-w-2xl mx-auto">
-              Get started with this template and build your next project with confidence
-            </P>
-            <Div devId="noID" className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                devId="cta-start-project"
-                devName="Start Project Button"
-                devDescription="Primary CTA button to start a new project"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
-              >
-                <span className="flex items-center gap-2">
-                  <Star className="w-5 h-5" />
-                  Start Project
-                </span>
-              </Button>
-              <Button 
-                devId="cta-join-community"
-                devName="Join Community Button"
-                devDescription="Secondary CTA button to join the community"
-                variant="outline"
-                className="border border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white px-8 py-3 rounded-lg font-semibold transition-all"
-              >
-                <span className="flex items-center gap-2">
-                  <Users className="w-5 h-5" />
-                  Join Community
-                </span>
-              </Button>
+      {/* Appointment Request Form */}
+      <Container componentId="appointment-form-section">
+        <Section devId="noID" className="container mx-auto px-4 py-20" id="appointment-form">
+          <Div devId="noID" className="max-w-2xl mx-auto">
+            <Div devId="noID" className="text-center mb-12">
+              <H2 devId="noID" className="text-4xl font-bold text-gray-800 mb-4">Request an Appointment</H2>
+              <P devId="noID" className="text-gray-600">
+                Fill out the form below and we'll contact you to schedule your appointment
+              </P>
             </Div>
+            <Card devId="appointment-form-card" className="bg-white rounded-2xl shadow-xl border border-gray-100">
+              <CardContent devId="noID" className="p-8">
+                <form onSubmit={handleAppointmentSubmit} className="space-y-6">
+                  <Div devId="noID" className="grid md:grid-cols-2 gap-4">
+                    <Div devId="noID">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={appointmentForm.name}
+                        onChange={(e) => setAppointmentForm({...appointmentForm, name: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter your full name"
+                      />
+                    </Div>
+                    <Div devId="noID">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                      <input
+                        type="email"
+                        required
+                        value={appointmentForm.email}
+                        onChange={(e) => setAppointmentForm({...appointmentForm, email: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter your email"
+                      />
+                    </Div>
+                  </Div>
+                  <Div devId="noID" className="grid md:grid-cols-2 gap-4">
+                    <Div devId="noID">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                      <input
+                        type="tel"
+                        required
+                        value={appointmentForm.phone}
+                        onChange={(e) => setAppointmentForm({...appointmentForm, phone: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="(555) 123-4567"
+                      />
+                    </Div>
+                    <Div devId="noID">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Date</label>
+                      <input
+                        type="date"
+                        value={appointmentForm.preferredDate}
+                        onChange={(e) => setAppointmentForm({...appointmentForm, preferredDate: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </Div>
+                  </Div>
+                  <Div devId="noID" className="grid md:grid-cols-2 gap-4">
+                    <Div devId="noID">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Time</label>
+                      <select
+                        value={appointmentForm.preferredTime}
+                        onChange={(e) => setAppointmentForm({...appointmentForm, preferredTime: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="">Select time</option>
+                        <option value="morning">Morning (8AM-12PM)</option>
+                        <option value="afternoon">Afternoon (12PM-5PM)</option>
+                        <option value="evening">Evening (5PM-7PM)</option>
+                      </select>
+                    </Div>
+                    <Div devId="noID">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Reason for Visit</label>
+                      <select
+                        value={appointmentForm.reason}
+                        onChange={(e) => setAppointmentForm({...appointmentForm, reason: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="">Select reason</option>
+                        <option value="checkup">Routine Checkup</option>
+                        <option value="consultation">Consultation</option>
+                        <option value="follow-up">Follow-up</option>
+                        <option value="emergency">Urgent Care</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </Div>
+                  </Div>
+                  <Div devId="noID">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Additional Message</label>
+                    <textarea
+                      rows={4}
+                      value={appointmentForm.message}
+                      onChange={(e) => setAppointmentForm({...appointmentForm, message: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Please describe your symptoms or any additional information..."
+                    />
+                  </Div>
+                  <Button 
+                    devId="submit-appointment-request"
+                    devName="Submit Appointment Request"
+                    devDescription="Button to submit appointment request form"
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-white py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
+                  >
+                    <Calendar className="w-5 h-5 mr-2" />
+                    Request Appointment
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
           </Div>
         </Section>
       </Container>
@@ -401,18 +530,43 @@ export const Landing: React.FC = () => {
       <Footer 
         devId="main-footer" 
         devName="Main Footer" 
-        devDescription="Site footer with links and copyright"
-        className="container mx-auto px-4 py-8 border-t border-white/10"
+        devDescription="Site footer with medical practice information"
+        className="container mx-auto px-4 py-12 border-t border-gray-200"
       >
-        <Div devId="noID" className="flex flex-col md:flex-row justify-between items-center">
-          <Div devId="noID" className="text-gray-400 mb-4 md:mb-0">
-            © 2024 Geenius Template. Built with ❤️ for developers.
+        <Div devId="noID" className="grid md:grid-cols-3 gap-8">
+          <Div devId="noID">
+            <Div devId="noID" className="flex items-center space-x-2 mb-4">
+              <Div devId="noID" className="w-8 h-8 bg-gradient-to-r from-blue-600 to-green-600 rounded-full flex items-center justify-center">
+                <Stethoscope className="w-5 h-5 text-white" />
+              </Div>
+              <Span devId="noID" className="text-xl font-bold text-gray-800">Dr. Mike</Span>
+            </Div>
+            <P devId="noID" className="text-gray-600 mb-4">
+              Providing exceptional healthcare services with compassion and expertise for over 15 years.
+            </P>
           </Div>
-          <Div devId="noID" className="flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">Documentation</a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">GitHub</a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">Support</a>
+          <Div devId="noID">
+            <h3 className="font-semibold text-gray-800 mb-4">Quick Links</h3>
+            <Div devId="noID" className="space-y-2">
+              <a href="#services" className="block text-gray-600 hover:text-blue-600 transition-colors">Services</a>
+              <a href="#about" className="block text-gray-600 hover:text-blue-600 transition-colors">About</a>
+              <a href="#appointment-form" className="block text-gray-600 hover:text-blue-600 transition-colors">Book Appointment</a>
+              <Link to="/login" className="block text-gray-600 hover:text-blue-600 transition-colors">Patient Portal</Link>
+            </Div>
           </Div>
+          <Div devId="noID">
+            <h3 className="font-semibold text-gray-800 mb-4">Contact Info</h3>
+            <Div devId="noID" className="space-y-2 text-gray-600">
+              <P devId="noID">(555) 123-4567</P>
+              <P devId="noID">contact@drmike.com</P>
+              <P devId="noID">123 Medical Center Dr<br />Health City, HC 12345</P>
+            </Div>
+          </Div>
+        </Div>
+        <Div devId="noID" className="border-t border-gray-200 mt-8 pt-8 text-center">
+          <P devId="noID" className="text-gray-600">
+            © 2024 Dr. Mike Medical Practice. All rights reserved. | Licensed Healthcare Provider
+          </P>
         </Div>
       </Footer>
       </Div>
